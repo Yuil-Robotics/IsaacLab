@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+contract_report.json
+policy_result.json
+server_result.json
+/target/
+/.mujoco/
+/MUJOCO_LOG.TXT
+/logs/

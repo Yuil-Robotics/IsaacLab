@@ -1,0 +1,31 @@
+# Copyright (c) 2026, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+# The IsaacLab root ignores every path beginning with "__". Package
+# initializers are source files and must remain trackable in this project.
+!source/**/__init__.py
+
+**/__pycache__/
+.pytest_cache/
+*.pyc
+
+# The repository-level ignore excludes binary USD files. Keep the generated
+# wrappers and the small local DexCube source layers needed at runtime.
+!assets/hx5_d20_left_original_newton/hx5_d20_left.usda
+!assets/dex_cube_original_newton/dex_cube.usda
+!assets/dex_cube_original_newton/source/dex_cube_instanceable.usd
+!assets/dex_cube_original_newton/source/Props/instanceable_meshes.usd
+!assets/dex_cube_original_newton/source/Materials/dex_cube_mod.png
+
+# Legacy MJCF conversion outputs are retained for comparison only.
+!assets/hx5_d20_left_2/hx5_d20_left/*.usda
+!assets/hx5_d20_left_2/hx5_d20_left/**/*.usda
+!assets/hx5_d20_left_2/hx5_d20_left/payloads/geometries.usd
+!assets/hx5_d20_left_2/hx5_d20_left_1/*.usda
+!assets/hx5_d20_left_2/hx5_d20_left_1/**/*.usda
+!assets/hx5_d20_left_2/hx5_d20_left_1/payloads/geometries.usd
+!assets/hx5_d20_left_fixed/hx5_d20_left/*.usda
+!assets/hx5_d20_left_fixed/hx5_d20_left/**/*.usda
+!assets/hx5_d20_left_fixed/hx5_d20_left/payloads/geometries.usd
