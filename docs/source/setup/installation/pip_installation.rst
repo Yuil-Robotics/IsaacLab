@@ -34,8 +34,6 @@ If you encounter any issues, please report them to the
 
 .. include:: include/pip_python_virtual_env.rst
 
-.. _isaaclab-pip-installing-dependencies:
-
 Installing dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~
 

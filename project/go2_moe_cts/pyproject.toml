@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "go2_moe_cts"
+version = "0.1.0"
+description = "Yuil Dog rough-terrain MoE-CTS with legacy Go2 PPO tasks"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["go2_moe_cts*"]
+
+[tool.setuptools.package-data]
+"go2_moe_cts.learning" = ["LICENSE.rsl_rl"]
+
+"go2_moe_cts.robots.yuil_dog" = [
+    "usd/*.usda",
+    "usd/generated/*.usda",
+    "usd/generated/payloads/*.usd",
+    "usd/generated/payloads/*.usda",
+    "usd/generated/payloads/Physics/*.usda",
+]
+
+"go2_moe_cts.visualization" = ["assets/*.usda"]

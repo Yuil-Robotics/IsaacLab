@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="YBL-A603_250924.SLDASM">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-4.5417E-05 -0.00023447 0.026658"
+        rpy="0 0 0" />
+      <mass
+        value="0.81396" />
+      <inertia
+        ixx="0.0014466"
+        ixy="8.8112E-09"
+        ixz="1.0293E-06"
+        iyy="0.0014602"
+        iyz="-4.1422E-06"
+        izz="0.0023599" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="base_steel">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="j1_adapter">
+    <inertial>
+      <origin
+        xyz="-5.8563E-05 6.0342E-11 2.7508E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.061408" />
+      <inertia
+        ixx="2.301E-05"
+        ixy="6.2872E-14"
+        ixz="2.6065E-10"
+        iyy="2.307E-05"
+        iyz="4.6267E-15"
+        izz="4.5411E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j1_adapter.STL" />
+      </geometry>
+      <material
+        name="A6061T6">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j1_adapter.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j1_adapter_fix"
+    type="fixed">
+    <origin
+      xyz="0 0 0.0544"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="j1_adapter" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="j1_link">
+    <inertial>
+      <origin
+        xyz="-0.0034102 -7.7028E-06 -0.0025823"
+        rpy="0 0 0" />
+      <mass
+        value="1.9626" />
+      <inertia
+        ixx="0.0022781"
+        ixy="-3.1194E-07"
+        ixz="-1.7903E-06"
+        iyy="0.0023714"
+        iyz="9.2421E-08"
+        izz="0.0021646" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j1_link.STL" />
+      </geometry>
+      <material
+        name="80T">
+        <color
+          rgba="0.77647 0.77647 0.81569 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j1_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j1_link_rev"
+    type="revolute">
+    <origin
+      xyz="0 0 0.0491"
+      rpy="0 0 0" />
+    <parent
+      link="j1_adapter" />
+    <child
+      link="j1_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-6.283185307"
+      upper="6.283185307"
+      effort="101"
+      velocity="3.141592654" />
+  </joint>
+  <link
+    name="j2_adapter">
+    <inertial>
+      <origin
+        xyz="-7.7508E-05 -1.2108E-07 5.8563E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.061408" />
+      <inertia
+        ixx="4.5411E-05"
+        ixy="3.4882E-08"
+        ixz="2.6065E-10"
+        iyy="2.307E-05"
+        iyz="4.6975E-13"
+        izz="2.301E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j2_adapter.STL" />
+      </geometry>
+      <material
+        name="A6061T6">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j2_adapter.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j2_adapter_fix"
+    type="fixed">
+    <origin
+      xyz="-0.04885 -7.6273E-05 0"
+      rpy="0 0 0" />
+    <parent
+      link="j1_link" />
+    <child
+      link="j2_adapter" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="j2_link">
+    <inertial>
+      <origin
+        xyz="0.0025522 6.9884E-06 0.0034073"
+        rpy="0 0 0" />
+      <mass
+        value="1.9637" />
+      <inertia
+        ixx="0.0021648"
+        ixy="-1.6059E-07"
+        ixz="-2.1146E-06"
+        iyy="0.0023749"
+        iyz="-1.6812E-07"
+        izz="0.0022817" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j2_link.STL" />
+      </geometry>
+      <material
+        name="80T">
+        <color
+          rgba="0.77647 0.77647 0.81569 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j2_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j2_link_rev"
+    type="revolute">
+    <origin
+      xyz="-0.04915 -7.6741E-05 0"
+      rpy="0 0 0" />
+    <parent
+      link="j2_adapter" />
+    <child
+      link="j2_link" />
+    <axis
+      xyz="1 0.0015614 0" />
+    <limit
+      lower="-6.283185307"
+      upper="6.283185307"
+      effort="101"
+      velocity="3.141592654" />
+  </joint>
+  <link
+    name="j2_arm">
+    <inertial>
+      <origin
+        xyz="7.8427E-06 -0.00012639 0.090026"
+        rpy="0 0 0" />
+      <mass
+        value="0.65847" />
+      <inertia
+        ixx="0.0026996"
+        ixy="4.7156E-08"
+        ixz="-2.9655E-07"
+        iyy="0.0026965"
+        iyz="1.3621E-07"
+        izz="0.00085536" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j2_arm.STL" />
+      </geometry>
+      <material
+        name="A6061T6">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j2_arm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j2_arm_fix"
+    type="fixed">
+    <origin
+      xyz="0 0 0.04885"
+      rpy="0 0 0" />
+    <parent
+      link="j2_link" />
+    <child
+      link="j2_arm" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="arm_j3">
+    <inertial>
+      <origin
+        xyz="0.0025522 9.8112E-07 0.045443"
+        rpy="0 0 0" />
+      <mass
+        value="1.9637" />
+      <inertia
+        ixx="0.0021648"
+        ixy="-4.9534E-07"
+        ixz="2.1149E-06"
+        iyy="0.0023749"
+        iyz="-1.6153E-07"
+        izz="0.0022817" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/arm_j3.STL" />
+      </geometry>
+      <material
+        name="80T">
+        <color
+          rgba="0.77647 0.77647 0.81569 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/arm_j3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="arm_j3_fix"
+    type="fixed">
+    <origin
+      xyz="0 0 0.1801"
+      rpy="0 0 0" />
+    <parent
+      link="j2_arm" />
+    <child
+      link="arm_j3" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="j3_adapter">
+    <inertial>
+      <origin
+        xyz="0.049072 7.662E-05 -5.8563E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.061408" />
+      <inertia
+        ixx="4.5411E-05"
+        ixy="3.4882E-08"
+        ixz="-2.6065E-10"
+        iyy="2.307E-05"
+        iyz="-3.4401E-13"
+        izz="2.301E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j3_adapter.STL" />
+      </geometry>
+      <material
+        name="A6061T6">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j3_adapter.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j3_adapter_rev"
+    type="revolute">
+    <origin
+      xyz="0 0 0.04885"
+      rpy="1.5708 0 0" />
+    <parent
+      link="arm_j3" />
+    <child
+      link="j3_adapter" />
+    <axis
+      xyz="1 0.0015614 0" />
+    <limit
+      lower="-6.283185307"
+      upper="6.283185307"
+      effort="101"
+      velocity="3.141592654" />
+  </joint>
+  <link
+    name="j3_elbowArm">
+    <inertial>
+      <origin
+        xyz="0.042241 1.6346E-05 0.081578"
+        rpy="0 0 0" />
+      <mass
+        value="0.50482" />
+      <inertia
+        ixx="0.0031749"
+        ixy="5.4132E-08"
+        ixz="-0.0002777"
+        iyy="0.0032101"
+        iyz="2.2489E-06"
+        izz="0.00062174" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j3_elbowArm.STL" />
+      </geometry>
+      <material
+        name="A6061T6">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j3_elbowArm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j3_elbowArm_fix"
+    type="fixed">
+    <origin
+      xyz="0.049 8.6248E-05 0"
+      rpy="0 0 0" />
+    <parent
+      link="j3_adapter" />
+    <child
+      link="j3_elbowArm" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="elbowArm_j4">
+    <inertial>
+      <origin
+        xyz="-0.0019266 -9.2702E-06 0.038908"
+        rpy="0 0 0" />
+      <mass
+        value="1.2573" />
+      <inertia
+        ixx="0.0010854"
+        ixy="-9.6087E-09"
+        ixz="5.6744E-06"
+        iyy="0.0011716"
+        iyz="-9.4383E-08"
+        izz="0.0011036" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/elbowArm_j4.STL" />
+      </geometry>
+      <material
+        name="70T">
+        <color
+          rgba="0.77647 0.77647 0.81569 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/elbowArm_j4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="elbowArm_j4_fix"
+    type="fixed">
+    <origin
+      xyz="0.0485 6.5985E-05 0.2172"
+      rpy="0 0 0" />
+    <parent
+      link="j3_elbowArm" />
+    <child
+      link="elbowArm_j4" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="j4_link">
+    <inertial>
+      <origin
+        xyz="-0.04289 -6.6967E-05 8.7153E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.04408" />
+      <inertia
+        ixx="2.1366E-05"
+        ixy="1.6299E-08"
+        ixz="4.2291E-10"
+        iyy="1.0927E-05"
+        iyz="5.97E-13"
+        izz="1.0928E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j4_link.STL" />
+      </geometry>
+      <material
+        name="A6061T6">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j4_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j4_link_rev"
+    type="revolute">
+    <origin
+      xyz="0 0 0.043"
+      rpy="0 0 0" />
+    <parent
+      link="elbowArm_j4" />
+    <child
+      link="j4_link" />
+    <axis
+      xyz="1 0.0015614 0" />
+    <limit
+      lower="-6.283185307"
+      upper="6.283185307"
+      effort="63"
+      velocity="3.141592654" />
+  </joint>
+  <link
+    name="j4_adapter_j5">
+    <inertial>
+      <origin
+        xyz="-0.038908 -5.4488E-05 0.0019266"
+        rpy="0 0 0" />
+      <mass
+        value="1.2573" />
+      <inertia
+        ixx="0.0011036"
+        ixy="-2.0938E-07"
+        ixz="5.6741E-06"
+        iyy="0.0011716"
+        iyz="1.338E-07"
+        izz="0.0010854" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j4_adapter_j5.STL" />
+      </geometry>
+      <material
+        name="70T">
+        <color
+          rgba="0.77647 0.77647 0.81569 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j4_adapter_j5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j4_adapter_j5_fix"
+    type="fixed">
+    <origin
+      xyz="-0.043 -6.7139E-05 0"
+      rpy="0 0 0" />
+    <parent
+      link="j4_link" />
+    <child
+      link="j4_adapter_j5" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="j5_link">
+    <inertial>
+      <origin
+        xyz="-8.7153E-05 1.9969E-07 0.04289"
+        rpy="0 0 0" />
+      <mass
+        value="0.04408" />
+      <inertia
+        ixx="1.0928E-05"
+        ixy="-8.3426E-13"
+        ixz="4.2291E-10"
+        iyy="1.0927E-05"
+        iyz="-9.6384E-13"
+        izz="2.1366E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j5_link.STL" />
+      </geometry>
+      <material
+        name="A6061T6">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j5_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j5_link_rev"
+    type="revolute">
+    <origin
+      xyz="-0.043 -6.7139E-05 0"
+      rpy="0 0 0" />
+    <parent
+      link="j4_adapter_j5" />
+    <child
+      link="j5_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-6.283185307"
+      upper="6.283185307"
+      effort="63"
+      velocity="3.141592654" />
+  </joint>
+  <link
+    name="j5_adapter_j6">
+    <inertial>
+      <origin
+        xyz="-0.0019266 -1.8468E-06 0.038908"
+        rpy="0 0 0" />
+      <mass
+        value="1.2573" />
+      <inertia
+        ixx="0.0010854"
+        ixy="3.2247E-07"
+        ixz="5.674E-06"
+        iyy="0.0011716"
+        iyz="-1.1626E-07"
+        izz="0.0011036" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j5_adapter_j6.STL" />
+      </geometry>
+      <material
+        name="70T">
+        <color
+          rgba="0.77647 0.77647 0.81569 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j5_adapter_j6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j5_adapter_j6_fix"
+    type="fixed">
+    <origin
+      xyz="0 0 0.043"
+      rpy="0 0 1.5708" />
+    <parent
+      link="j5_link" />
+    <child
+      link="j5_adapter_j6" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="j6_link">
+    <inertial>
+      <origin
+        xyz="-0.04289 9.8304E-05 8.7153E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.04408" />
+      <inertia
+        ixx="2.1366E-05"
+        ixy="-2.3926E-08"
+        ixz="4.2291E-10"
+        iyy="1.0927E-05"
+        iyz="-1.0327E-12"
+        izz="1.0928E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j6_link.STL" />
+      </geometry>
+      <material
+        name="A6061T6">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j6_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j6_link_rev"
+    type="revolute">
+    <origin
+      xyz="0 0 0.043"
+      rpy="0 0 0" />
+    <parent
+      link="j5_adapter_j6" />
+    <child
+      link="j6_link" />
+    <axis
+      xyz="1 -0.002292 0" />
+    <limit
+      lower="-6.283185307"
+      upper="6.283185307"
+      effort="63"
+      velocity="3.141592654" />
+  </joint>
+  <link
+    name="j6_adapter_endplate">
+    <inertial>
+      <origin
+        xyz="-0.016155 -0.0005074 -0.00038594"
+        rpy="0 0 0" />
+      <mass
+        value="0.23211" />
+      <inertia
+        ixx="0.00019813"
+        ixy="-8.3549E-08"
+        ixz="-1.0053E-06"
+        iyy="0.00012383"
+        iyz="5.1041E-08"
+        izz="0.00012198" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j6_adapter_endplate.STL" />
+      </geometry>
+      <material
+        name="A6061T6">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://YBL-A603_250924.SLDASM/meshes/j6_adapter_endplate.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j6_adapter_endplate_fix"
+    type="fixed">
+    <origin
+      xyz="-0.04275 9.7984E-05 0"
+      rpy="0 0 0" />
+    <parent
+      link="j6_link" />
+    <child
+      link="j6_adapter_endplate" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

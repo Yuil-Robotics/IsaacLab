@@ -1,0 +1,471 @@
+# Copyright (c) 2026, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+"""Project-owned Go2 flat-ground task and PPO configurations."""
+
+from __future__ import annotations
+
+import sys
+from typing import Literal
+
+import gymnasium as gym
+
+from isaaclab.envs import mdp
+from isaaclab.managers import EventTermCfg as EventTerm
+from isaaclab.managers import RewardTermCfg as RewTerm
+from isaaclab.managers import SceneEntityCfg
+from isaaclab.utils.configclass import configclass
+
+import isaaclab_tasks.manager_based.locomotion.velocity.config.spot.mdp as spot_mdp
+from isaaclab_tasks.manager_based.locomotion.velocity.config.go2.agents.rsl_rl_ppo_cfg import (
+    UnitreeGo2FlatPPORunnerCfg,
+)
+from isaaclab_tasks.manager_based.locomotion.velocity.config.go2.flat_env_cfg import (
+    UnitreeGo2FlatEnvCfg,
+    UnitreeGo2FlatEnvCfg_PLAY,
+)
+
+from .asset_cfg import (
+    get_active_foot_names,
+    get_active_joint_names,
+    get_active_robot_cfg,
+    get_active_trot_foot_pairs,
+)
+from .rear_stand_cfg import (
+    REAR_STAND_PLAY_TASK_ID,
+    REAR_STAND_TRAIN_TASK_ID,
+    Go2RearStandPlayEnvCfg,
+    Go2RearStandPPORunnerCfg,
+    Go2RearStandTrainEnvCfg,
+)
+from .rough_cfg import (
+    ROUGH_EVAL_TASK_ID,
+    ROUGH_PLAY_TASK_ID,
+    ROUGH_TRAIN_TASK_ID,
+    Go2RoughEvalEnvCfg,
+    Go2RoughPlayEnvCfg,
+    Go2RoughPPORunnerCfg,
+    Go2RoughTrainEnvCfg,
+)
+from .rough_history_cfg import (
+    ROUGH_HISTORY_EVAL_TASK_ID,
+    ROUGH_HISTORY_PLAY_TASK_ID,
+    ROUGH_HISTORY_TRAIN_TASK_ID,
+    Go2RoughHistoryEvalEnvCfg,
+    Go2RoughHistoryPlayEnvCfg,
+    Go2RoughHistoryPPORunnerCfg,
+    Go2RoughHistoryTrainEnvCfg,
+)
+from .sensor_patterns import (
+    create_lidar_cfg,
+)
+from .visualization import CURRENT_VELOCITY_MARKER_CFG, GOAL_VELOCITY_MARKER_CFG
+from .yuil_dog_cfg import (
+    YUIL_DOG_ROUGH_EVAL_TASK_ID,
+    YUIL_DOG_ROUGH_PLAY_TASK_ID,
+    YUIL_DOG_ROUGH_TRAIN_TASK_ID,
+    YuilDogRoughEvalEnvCfg,
+    YuilDogRoughPlayEnvCfg,
+    YuilDogRoughPPORunnerCfg,
+    YuilDogRoughTrainEnvCfg,
+)
+from .yuil_dog_flat_cfg import (
+    YUIL_DOG_FLAT_EVAL_TASK_ID,
+    YUIL_DOG_FLAT_PLAY_TASK_ID,
+    YUIL_DOG_FLAT_TRAIN_TASK_ID,
+    YuilDogFlatEvalEnvCfg,
+    YuilDogFlatPlayEnvCfg,
+    YuilDogFlatPPORunnerCfg,
+    YuilDogFlatTrainEnvCfg,
+)
+from .yuil_dog_flat_low_profile_cfg import (
+    YUIL_DOG_FLAT_LOW_PROFILE_EVAL_TASK_ID,
+    YUIL_DOG_FLAT_LOW_PROFILE_PLAY_TASK_ID,
+    YUIL_DOG_FLAT_LOW_PROFILE_TRAIN_TASK_ID,
+    YuilDogFlatLowProfileEvalEnvCfg,
+    YuilDogFlatLowProfilePlayEnvCfg,
+    YuilDogFlatLowProfilePPORunnerCfg,
+    YuilDogFlatLowProfileTrainEnvCfg,
+)
+from .yuil_dog_flat_robotlab_cfg import (
+    YUIL_DOG_FLAT_ROBOTLAB_EVAL_TASK_ID,
+    YUIL_DOG_FLAT_ROBOTLAB_PLAY_TASK_ID,
+    YUIL_DOG_FLAT_ROBOTLAB_RECOVERY_EVAL_TASK_ID,
+    YUIL_DOG_FLAT_ROBOTLAB_TRAIN_TASK_ID,
+    YuilDogFlatRobotLabEvalEnvCfg,
+    YuilDogFlatRobotLabPlayEnvCfg,
+    YuilDogFlatRobotLabPPORunnerCfg,
+    YuilDogFlatRobotLabRecoveryEvalEnvCfg,
+    YuilDogFlatRobotLabTrainEnvCfg,
+)
+
+TRAIN_TASK_ID = "Isaac-Velocity-Flat-Go2-Sim2Sim-v0"
+PLAY_TASK_ID = "Isaac-Velocity-Flat-Go2-Sim2Sim-Play-v0"
+EVAL_TASK_ID = "Isaac-Velocity-Flat-Go2-Sim2Sim-Eval-v0"
+EXPERIMENT_NAME = "go2_rough_spot_rewards_sim2sim_dr"
+
+
+def _apply_project_robot(env_cfg: UnitreeGo2FlatEnvCfg) -> None:
+    """Use pinned local assets with a shared Sim2Sim actuator contract."""
+    env_cfg.scene.robot = get_active_robot_cfg().replace(prim_path="{ENV_REGEX_NS}/Robot")
+    if "base_legs" in env_cfg.scene.robot.actuators:
+        env_cfg.scene.robot.actuators["base_legs"].armature = 0.02
+    env_cfg.scene.terrain.class_type = "go2_sim2sim.terrain:LocalPlaneTerrainImporter"
+    joint_names = list(get_active_joint_names())
+    env_cfg.actions.joint_pos.joint_names = joint_names
+    env_cfg.actions.joint_pos.preserve_order = True
+    joint_asset_cfg = SceneEntityCfg("robot", joint_names=joint_names, preserve_order=True)
+    env_cfg.observations.policy.joint_pos.params["asset_cfg"] = joint_asset_cfg
+    env_cfg.observations.policy.joint_vel.params["asset_cfg"] = joint_asset_cfg
+
+
+def _apply_project_sensors(
+    env_cfg: UnitreeGo2FlatEnvCfg,
+    debug_vis: bool = False,
+    orientation: Literal["forward", "downward"] = "forward",
+) -> None:
+    """Attach 3D LiDAR to Go2 robot.
+
+    Options:
+      - 'forward'  : Front-facing horizontal 3D LiDAR for navigation & obstacle mapping (Default).
+      - 'downward' : Chin-mounted downward 3D LiDAR for ground terrain & step profiling.
+
+    See DOWNWARD_LIDAR_MEMO and FORWARD_LIDAR_MEMO in sensor_patterns.py for full specifications.
+    """
+    env_cfg.scene.height_scanner = None
+    env_cfg.observations.policy.height_scan = None
+    if debug_vis:
+        env_cfg.scene.lidar = create_lidar_cfg(
+            orientation=orientation,
+            prim_path="{ENV_REGEX_NS}/Robot/base",
+            debug_vis=debug_vis,
+        )
+    else:
+        env_cfg.scene.lidar = None
+
+
+def _apply_sim2sim_randomization(env_cfg: UnitreeGo2FlatEnvCfg) -> None:
+    """Add targeted training randomization for contact and motor response."""
+    joint_names = list(get_active_joint_names())
+    env_cfg.events.physics_material.params.update(
+        {
+            "static_friction_range": (0.4, 0.8),
+            "dynamic_friction_range": (0.3, 0.6),
+            "restitution_range": (0.0, 0.05),
+            "make_consistent": True,
+        }
+    )
+    env_cfg.events.actuator_gains = EventTerm(
+        func=mdp.randomize_actuator_gains,
+        mode="startup",
+        params={
+            "asset_cfg": SceneEntityCfg(
+                "robot",
+                joint_names=joint_names,
+                preserve_order=True,
+            ),
+            "stiffness_distribution_params": (0.9, 1.1),
+            "damping_distribution_params": (0.8, 1.2),
+            "operation": "scale",
+            "distribution": "uniform",
+        },
+    )
+
+
+def _apply_velocity_markers(env_cfg: UnitreeGo2FlatEnvCfg, debug_vis: bool) -> None:
+    """Use project-local command arrows that remain visible without Nucleus."""
+    command_cfg = env_cfg.commands.base_velocity
+    command_cfg.class_type = "go2_sim2sim.velocity_command:VisibleVelocityCommand"
+    command_cfg.debug_vis = debug_vis
+    command_cfg.rel_standing_envs = 0.10  # 1/10 zero-velocity standing command
+    command_cfg.ranges.lin_vel_y = (-0.3, 0.3)
+    command_cfg.goal_vel_visualizer_cfg = GOAL_VELOCITY_MARKER_CFG.copy()
+    command_cfg.current_vel_visualizer_cfg = CURRENT_VELOCITY_MARKER_CFG.copy()
+
+
+def _apply_project_rewards(env_cfg: UnitreeGo2FlatEnvCfg) -> None:
+    """Apply Spot-style locomotion rewards adapted to the Go2 morphology."""
+    # Replace the sparse upstream Go2 objective instead of mixing two tracking
+    # kernels and two action-regularization conventions.
+    env_cfg.rewards.track_lin_vel_xy_exp = None
+    env_cfg.rewards.track_ang_vel_z_exp = None
+    env_cfg.rewards.lin_vel_z_l2 = None
+    env_cfg.rewards.ang_vel_xy_l2 = None
+    env_cfg.rewards.dof_torques_l2 = None
+    env_cfg.rewards.dof_acc_l2 = None
+    env_cfg.rewards.action_rate_l2 = None
+    env_cfg.rewards.feet_air_time = None
+    env_cfg.rewards.flat_orientation_l2 = None
+    env_cfg.rewards.dof_pos_limits = None
+    env_cfg.rewards.base_height_l2 = None
+
+    foot_names = list(get_active_foot_names())
+    joint_names = list(get_active_joint_names())
+    trot_pairs = get_active_trot_foot_pairs()
+
+    env_cfg.rewards.air_time = RewTerm(
+        func=spot_mdp.air_time_reward,
+        weight=2.5,
+        params={
+            "mode_time": 0.35,
+            "velocity_threshold": 0.5,
+            "asset_cfg": SceneEntityCfg("robot"),
+            "sensor_cfg": SceneEntityCfg("contact_forces", body_names=foot_names),
+        },
+    )
+    env_cfg.rewards.base_angular_velocity = RewTerm(
+        func=spot_mdp.base_angular_velocity_reward,
+        weight=5.0,
+        params={"std": 2.0, "asset_cfg": SceneEntityCfg("robot")},
+    )
+    env_cfg.rewards.base_linear_velocity = RewTerm(
+        func=spot_mdp.base_linear_velocity_reward,
+        weight=5.0,
+        params={
+            "std": 1.0,
+            "ramp_rate": 0.5,
+            "ramp_at_vel": 1.0,
+            "asset_cfg": SceneEntityCfg("robot"),
+        },
+    )
+    env_cfg.rewards.foot_clearance = RewTerm(
+        func=spot_mdp.foot_clearance_reward,
+        weight=0.5,
+        params={
+            "std": 0.05,
+            "tanh_mult": 2.0,
+            "target_height": 0.10,
+            "asset_cfg": SceneEntityCfg("robot", body_names=foot_names),
+        },
+    )
+    env_cfg.rewards.gait = RewTerm(
+        func=spot_mdp.GaitReward,
+        weight=2.5,
+        params={
+            "std": 0.1,
+            "max_err": 0.2,
+            "velocity_threshold": 0.5,
+            "synced_feet_pair_names": trot_pairs,
+            "asset_cfg": SceneEntityCfg("robot"),
+            "sensor_cfg": SceneEntityCfg("contact_forces"),
+        },
+    )
+
+    env_cfg.rewards.action_smoothness = RewTerm(func=spot_mdp.action_smoothness_penalty, weight=-2.0)
+    env_cfg.rewards.air_time_variance = RewTerm(
+        func=spot_mdp.air_time_variance_penalty,
+        weight=-1.0,
+        params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names=foot_names)},
+    )
+    env_cfg.rewards.base_motion = RewTerm(
+        func=spot_mdp.base_motion_penalty,
+        weight=-2.0,
+        params={"asset_cfg": SceneEntityCfg("robot")},
+    )
+    env_cfg.rewards.base_orientation = RewTerm(
+        func=spot_mdp.base_orientation_penalty,
+        weight=-3.0,
+        params={"asset_cfg": SceneEntityCfg("robot")},
+    )
+    env_cfg.rewards.foot_slip = RewTerm(
+        func=spot_mdp.foot_slip_penalty,
+        weight=-0.5,
+        params={
+            "asset_cfg": SceneEntityCfg("robot", body_names=foot_names),
+            "sensor_cfg": SceneEntityCfg("contact_forces", body_names=foot_names),
+            "threshold": 1.0,
+        },
+    )
+    env_cfg.rewards.joint_acc = RewTerm(
+        func=spot_mdp.joint_acceleration_penalty,
+        weight=-1.0e-4,
+        params={"asset_cfg": SceneEntityCfg("robot", joint_names=joint_names, preserve_order=True)},
+    )
+    env_cfg.rewards.joint_pos = RewTerm(
+        func=spot_mdp.joint_position_penalty,
+        weight=-0.7,
+        params={
+            "asset_cfg": SceneEntityCfg("robot", joint_names=joint_names, preserve_order=True),
+            "stand_still_scale": 5.0,
+            "velocity_threshold": 0.5,
+        },
+    )
+    env_cfg.rewards.hip_joint_pos = RewTerm(
+        func=mdp.joint_deviation_l1,
+        weight=-1.0,
+        params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*_hip_joint"])},
+    )
+    env_cfg.rewards.joint_torques = RewTerm(
+        func=spot_mdp.joint_torques_penalty,
+        weight=-5.0e-4,
+        params={"asset_cfg": SceneEntityCfg("robot", joint_names=joint_names, preserve_order=True)},
+    )
+    env_cfg.rewards.joint_vel = RewTerm(
+        func=spot_mdp.joint_velocity_penalty,
+        weight=-1.0e-2,
+        params={"asset_cfg": SceneEntityCfg("robot", joint_names=joint_names, preserve_order=True)},
+    )
+    env_cfg.rewards.undesired_contacts = RewTerm(
+        func=mdp.undesired_contacts,
+        weight=-1.0,
+        params={
+            "sensor_cfg": SceneEntityCfg(
+                "contact_forces",
+                body_names=[".*_hip", ".*_thigh", ".*_calf"],
+            ),
+            "threshold": 1.0,
+        },
+    )
+
+
+@configclass
+class Go2FlatTrainEnvCfg(UnitreeGo2FlatEnvCfg):
+    """Go2 flat-ground velocity tracking used for PhysX training."""
+
+    def __post_init__(self) -> None:
+        """Apply project training defaults."""
+        super().__post_init__()
+        self.scene.num_envs = 4096
+        _apply_project_robot(self)
+        _apply_project_sensors(self, debug_vis=False)
+        _apply_sim2sim_randomization(self)
+        _apply_velocity_markers(self, debug_vis=False)
+        _apply_project_rewards(self)
+
+
+@configclass
+class Go2FlatPlayEnvCfg(UnitreeGo2FlatEnvCfg_PLAY):
+    """Go2 flat-ground policy visualization on either physics backend."""
+
+    def __post_init__(self) -> None:
+        """Apply project play defaults."""
+        super().__post_init__()
+        self.scene.num_envs = 16
+        _apply_project_robot(self)
+        _apply_project_sensors(self, debug_vis=False)
+        _apply_velocity_markers(self, debug_vis=True)
+        _apply_project_rewards(self)
+
+
+@configclass
+class Go2FlatEvalEnvCfg(UnitreeGo2FlatEnvCfg_PLAY):
+    """Deterministic evaluation configuration shared by PhysX and Newton."""
+
+    def __post_init__(self) -> None:
+        """Remove stochastic perturbations that obscure solver comparisons."""
+        super().__post_init__()
+        self.scene.num_envs = 256
+        self.commands.base_velocity.debug_vis = False
+        _apply_project_robot(self)
+        _apply_project_sensors(self, debug_vis=False)
+        _apply_project_rewards(self)
+        self.commands.base_velocity.heading_command = False
+        self.commands.base_velocity.rel_heading_envs = 0.0
+        self.commands.base_velocity.rel_standing_envs = 0.0
+        self.commands.base_velocity.resampling_time_range = (1.0e9, 1.0e9)
+        self.commands.base_velocity.ranges.heading = None
+
+        self.observations.policy.enable_corruption = False
+        self.events.add_base_mass = None
+        self.events.base_com = None
+        self.events.base_external_force_torque = None
+        self.events.push_robot = None
+        self.events.reset_base.params["pose_range"] = {
+            "x": (0.0, 0.0),
+            "y": (0.0, 0.0),
+            "z": (0.0, 0.0),
+            "roll": (0.0, 0.0),
+            "pitch": (0.0, 0.0),
+            "yaw": (0.0, 0.0),
+        }
+        self.events.reset_base.params["velocity_range"] = {
+            "x": (0.0, 0.0),
+            "y": (0.0, 0.0),
+            "z": (0.0, 0.0),
+            "roll": (0.0, 0.0),
+            "pitch": (0.0, 0.0),
+            "yaw": (0.0, 0.0),
+        }
+        self.events.reset_robot_joints.params["position_range"] = (1.0, 1.0)
+        self.events.reset_robot_joints.params["velocity_range"] = (0.0, 0.0)
+
+
+@configclass
+class Go2FlatPPORunnerCfg(UnitreeGo2FlatPPORunnerCfg):
+    """Project PPO configuration with an isolated experiment directory."""
+
+    experiment_name = EXPERIMENT_NAME
+    max_iterations = 1500
+    save_interval = 50
+
+    def __post_init__(self) -> None:
+        """Restore project values after the upstream flat-task overrides."""
+        super().__post_init__()
+        self.experiment_name = EXPERIMENT_NAME
+        self.max_iterations = 1500
+        self.save_interval = 50
+
+
+def register_tasks() -> list[str]:
+    """Register project Gym tasks and preserve Hydra arguments."""
+    task_configs = {
+        TRAIN_TASK_ID: (Go2FlatTrainEnvCfg, Go2FlatPPORunnerCfg),
+        PLAY_TASK_ID: (Go2FlatPlayEnvCfg, Go2RoughPPORunnerCfg),
+        EVAL_TASK_ID: (Go2FlatEvalEnvCfg, Go2RoughPPORunnerCfg),
+        ROUGH_TRAIN_TASK_ID: (Go2RoughTrainEnvCfg, Go2RoughPPORunnerCfg),
+        ROUGH_PLAY_TASK_ID: (Go2RoughPlayEnvCfg, Go2RoughPPORunnerCfg),
+        ROUGH_EVAL_TASK_ID: (Go2RoughEvalEnvCfg, Go2RoughPPORunnerCfg),
+        ROUGH_HISTORY_TRAIN_TASK_ID: (Go2RoughHistoryTrainEnvCfg, Go2RoughHistoryPPORunnerCfg),
+        ROUGH_HISTORY_PLAY_TASK_ID: (Go2RoughHistoryPlayEnvCfg, Go2RoughHistoryPPORunnerCfg),
+        ROUGH_HISTORY_EVAL_TASK_ID: (Go2RoughHistoryEvalEnvCfg, Go2RoughHistoryPPORunnerCfg),
+        REAR_STAND_TRAIN_TASK_ID: (Go2RearStandTrainEnvCfg, Go2RearStandPPORunnerCfg),
+        REAR_STAND_PLAY_TASK_ID: (Go2RearStandPlayEnvCfg, Go2RearStandPPORunnerCfg),
+        YUIL_DOG_ROUGH_TRAIN_TASK_ID: (YuilDogRoughTrainEnvCfg, YuilDogRoughPPORunnerCfg),
+        YUIL_DOG_ROUGH_PLAY_TASK_ID: (YuilDogRoughPlayEnvCfg, YuilDogRoughPPORunnerCfg),
+        YUIL_DOG_ROUGH_EVAL_TASK_ID: (YuilDogRoughEvalEnvCfg, YuilDogRoughPPORunnerCfg),
+        YUIL_DOG_FLAT_TRAIN_TASK_ID: (YuilDogFlatTrainEnvCfg, YuilDogFlatPPORunnerCfg),
+        YUIL_DOG_FLAT_PLAY_TASK_ID: (YuilDogFlatPlayEnvCfg, YuilDogFlatPPORunnerCfg),
+        YUIL_DOG_FLAT_EVAL_TASK_ID: (YuilDogFlatEvalEnvCfg, YuilDogFlatPPORunnerCfg),
+        YUIL_DOG_FLAT_LOW_PROFILE_TRAIN_TASK_ID: (
+            YuilDogFlatLowProfileTrainEnvCfg,
+            YuilDogFlatLowProfilePPORunnerCfg,
+        ),
+        YUIL_DOG_FLAT_LOW_PROFILE_PLAY_TASK_ID: (
+            YuilDogFlatLowProfilePlayEnvCfg,
+            YuilDogFlatLowProfilePPORunnerCfg,
+        ),
+        YUIL_DOG_FLAT_LOW_PROFILE_EVAL_TASK_ID: (
+            YuilDogFlatLowProfileEvalEnvCfg,
+            YuilDogFlatLowProfilePPORunnerCfg,
+        ),
+        YUIL_DOG_FLAT_ROBOTLAB_TRAIN_TASK_ID: (
+            YuilDogFlatRobotLabTrainEnvCfg,
+            YuilDogFlatRobotLabPPORunnerCfg,
+        ),
+        YUIL_DOG_FLAT_ROBOTLAB_PLAY_TASK_ID: (
+            YuilDogFlatRobotLabPlayEnvCfg,
+            YuilDogFlatRobotLabPPORunnerCfg,
+        ),
+        YUIL_DOG_FLAT_ROBOTLAB_EVAL_TASK_ID: (
+            YuilDogFlatRobotLabEvalEnvCfg,
+            YuilDogFlatRobotLabPPORunnerCfg,
+        ),
+        YUIL_DOG_FLAT_ROBOTLAB_RECOVERY_EVAL_TASK_ID: (
+            YuilDogFlatRobotLabRecoveryEvalEnvCfg,
+            YuilDogFlatRobotLabPPORunnerCfg,
+        ),
+    }
+    for task_id, (env_cfg, runner_cfg) in task_configs.items():
+        if task_id not in gym.registry:
+            gym.register(
+                id=task_id,
+                entry_point="isaaclab.envs:ManagerBasedRLEnv",
+                disable_env_checker=True,
+                kwargs={
+                    "env_cfg_entry_point": f"{env_cfg.__module__}:{env_cfg.__name__}",
+                    "rsl_rl_cfg_entry_point": f"{runner_cfg.__module__}:{runner_cfg.__name__}",
+                },
+            )
+    return sys.argv[1:]

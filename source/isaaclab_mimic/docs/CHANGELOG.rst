@@ -1,25 +1,6 @@
 Changelog
 ---------
 
-1.3.5 (2026-09-11)
-~~~~~~~~~~~~~~~~~~
-
-Fixed
-^^^^^
-
-* Fixed :class:`SceneAsset` leaking its cached frame view when the view is rebuilt,
-  which left the view's backend state to be released on garbage collection.
-
-
-1.3.4 (2026-07-24)
-~~~~~~~~~~~~~~~~~~
-
-Added
-^^^^^
-
-* Added support for environment-provided demonstration recorder configurations during Mimic generation.
-
-
 1.3.3 (2026-06-26)
 ~~~~~~~~~~~~~~~~~~
 

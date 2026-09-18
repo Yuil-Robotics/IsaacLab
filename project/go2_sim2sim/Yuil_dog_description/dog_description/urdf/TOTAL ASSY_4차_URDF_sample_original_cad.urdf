@@ -1,0 +1,993 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="TOTAL ASSY_4차_URDF_sample">
+  <!-- KDL requires the root link to have no inertia. -->
+  <link name="base" />
+  <joint name="base_to_base_link" type="fixed">
+    <parent link="base" />
+    <child link="base_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-3.4729E-13 -0.000425167 0.025159041"
+        rpy="1.5707 0 0" />
+      <mass
+        value="2.9831" />
+      <inertia
+        ixx="0.013622"
+        ixy="6.9237E-09"
+        ixz="-4.0738E-07"
+        iyy="0.020949"
+        iyz="0.00017406"
+        izz="0.010711" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="1.5707 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="1.5707 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="FL_hip_roll">
+    <inertial>
+      <origin
+        xyz="-0.001427 -0.00042966 0.051362"
+        rpy="0 0 0" />
+      <mass
+        value="0.33515" />
+      <inertia
+        ixx="0.00051119"
+        ixy="4.2369E-06"
+        ixz="-3.3689E-07"
+        iyy="0.00026652"
+        iyz="-3.6916E-07"
+        izz="0.00035513" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FL_hip_roll.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FL_hip_roll.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FL_hip_roll"
+    type="revolute">
+    <origin
+      xyz="0.172 0.068975893 0.061174356"
+      rpy="1.570796327 0.000096327 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="FL_hip_roll" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.436332313"
+      upper="0.523598776"
+      effort="60"
+      velocity="20" />
+  </joint>
+  <link
+    name="FL_hip_pitch">
+    <inertial>
+      <origin
+        xyz="-0.032136 -0.038358462 -0.069744446"
+        rpy="3.1415 0 0" />
+      <mass
+        value="1.2961" />
+      <inertia
+        ixx="0.0045968"
+        ixy="0.0024204"
+        ixz="6.57E-05"
+        iyy="0.0027829"
+        iyz="-0.00010619"
+        izz="0.0072958" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="3.1415 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FL_hip_pitch.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="3.1415 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FL_hip_pitch.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FL_hip_pitch"
+    type="revolute">
+    <origin
+      xyz="0.019997 0.00033987 0.078"
+      rpy="-1.587705176 -1.077796265 1.587704252" />
+    <parent
+      link="FL_hip_roll" />
+    <child
+      link="FL_hip_pitch" />
+    <axis
+      xyz="0 0.016900359 0.999861570" />
+    <limit
+      lower="-2.094395102"
+      upper="1.396263402"
+      effort="120"
+      velocity="15" />
+  </joint>
+  <link
+    name="FL_knee_pitch">
+    <inertial>
+      <origin
+        xyz="0.0952133616673755 0.0891807644355748 0.00151548488404804"
+        rpy="0 0 0" />
+      <mass
+        value="0.427686087877279" />
+      <inertia
+        ixx="0.000836104288234169"
+        ixy="-0.000964253042238189"
+        ixz="-1.63842599641807E-05"
+        iyy="0.0012878469409147"
+        iyz="-1.35782904034778E-05"
+        izz="0.00208663845577627" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FL_knee_pitch.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FL_knee_pitch.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FL_knee_pitch"
+    type="revolute">
+    <origin
+      xyz="-0.12 -0.206398108 -0.087500877"
+      rpy="3.138901187 0.009005401 -0.561897930" />
+    <parent
+      link="FL_hip_pitch" />
+    <child
+      link="FL_knee_pitch" />
+    <axis
+      xyz="0 0.016993 -0.99986" />
+    <limit
+      lower="0"
+      upper="1.745329252"
+      effort="120"
+      velocity="15" />
+  </joint>
+  <link
+    name="FL_foot">
+    <inertial>
+      <origin
+        xyz="0.0020513 7.4563E-05 -0.0043872"
+        rpy="0 0 0" />
+      <mass
+        value="0.056509" />
+      <inertia
+        ixx="9.6885E-06"
+        ixy="2.6857E-08"
+        ixz="-1.5804E-06"
+        iyy="1.3535E-05"
+        iyz="2.0446E-08"
+        izz="1.2332E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FL_foot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FL_foot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FL_foot"
+    type="fixed">
+    <origin
+      xyz="0.16971 0.16968 0.0028839"
+      rpy="1.5708 0 0" />
+    <parent
+      link="FL_knee_pitch" />
+    <child
+      link="FL_foot" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="FR_hip_roll">
+    <inertial>
+      <origin
+        xyz="0.0014351 -4.6239E-05 0.050332"
+        rpy="0 0 0" />
+      <mass
+        value="0.33515" />
+      <inertia
+        ixx="0.00051119"
+        ixy="4.2573E-06"
+        ixz="-2.5971E-07"
+        iyy="0.00026896"
+        iyz="-3.7267E-06"
+        izz="0.00035269" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FR_hip_roll.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FR_hip_roll.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FR_hip_roll"
+    type="revolute">
+    <origin
+      xyz="0.172 -0.071003335 0.058808840"
+      rpy="1.570796327 0.000096327 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="FR_hip_roll" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.523598776"
+      upper="0.436332313"
+      effort="60"
+      velocity="20" />
+  </joint>
+  <link
+    name="FR_hip_pitch">
+    <inertial>
+      <origin
+        xyz="-0.031891 -0.040839616 0.068907784"
+        rpy="3.1415 0 0" />
+      <mass
+        value="1.2962" />
+      <inertia
+        ixx="0.0045935"
+        ixy="0.0024235"
+        ixz="1.7247E-05"
+        iyy="0.0027847"
+        iyz="-4.6933E-05"
+        izz="0.0072983" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="3.1415 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FR_hip_pitch.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="3.1415 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FR_hip_pitch.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FR_hip_pitch"
+    type="revolute">
+    <origin
+      xyz="-0.019497 -0.00033137 0.078"
+      rpy="-1.587705176 -1.077796265 1.587704252" />
+    <parent
+      link="FR_hip_roll" />
+    <child
+      link="FR_hip_pitch" />
+    <axis
+      xyz="0 -0.016900359 -0.999861570" />
+    <limit
+      lower="-1.396263402"
+      upper="2.094395102"
+      effort="120"
+      velocity="15" />
+  </joint>
+  <link
+    name="FR_knee_pitch">
+    <inertial>
+      <origin
+        xyz="0.095213 0.089181 0.0015155"
+        rpy="0 0 0" />
+      <mass
+        value="0.42769" />
+      <inertia
+        ixx="0.0008361"
+        ixy="-0.00096425"
+        ixz="-1.6384E-05"
+        iyy="0.0012878"
+        iyz="-1.3578E-05"
+        izz="0.0020866" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FR_knee_pitch.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FR_knee_pitch.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FR_knee_pitch"
+    type="revolute">
+    <origin
+      xyz="-0.12 -0.209242498 0.080975387"
+      rpy="3.139092254 0.008694545 -0.540308918" />
+    <parent
+      link="FR_hip_pitch" />
+    <child
+      link="FR_knee_pitch" />
+    <axis
+      xyz="0 -0.016993 0.99986" />
+    <limit
+      lower="-1.745329252"
+      upper="0"
+      effort="120"
+      velocity="15" />
+  </joint>
+  <link
+    name="FR_foot">
+    <inertial>
+      <origin
+        xyz="0.0020513 7.4563E-05 -0.0043872"
+        rpy="0 0 0" />
+      <mass
+        value="0.056509" />
+      <inertia
+        ixx="9.6885E-06"
+        ixy="2.6857E-08"
+        ixz="-1.5804E-06"
+        iyy="1.3535E-05"
+        iyz="2.0446E-08"
+        izz="1.2332E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FR_foot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/FR_foot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FR_foot"
+    type="fixed">
+    <origin
+      xyz="0.16971 0.16968 0.0028839"
+      rpy="1.5708 0 0" />
+    <parent
+      link="FR_knee_pitch" />
+    <child
+      link="FR_foot" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="RL_hip_roll">
+    <inertial>
+      <origin
+        xyz="-0.0014388 0.00026667 -0.050404"
+        rpy="0 0 0" />
+      <mass
+        value="0.33515" />
+      <inertia
+        ixx="0.00051121"
+        ixy="3.7371E-06"
+        ixz="-2.2475E-07"
+        iyy="0.00027359"
+        iyz="2.6601E-06"
+        izz="0.00034805" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RL_hip_roll.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RL_hip_roll.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RL_hip_roll"
+    type="revolute">
+    <origin
+      xyz="-0.172 0.068975893 0.061174356"
+      rpy="1.570796327 0.000096327 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="RL_hip_roll" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.523598776"
+      upper="0.436332313"
+      effort="60"
+      velocity="20" />
+  </joint>
+  <link
+    name="RL_hip_pitch">
+    <inertial>
+      <origin
+        xyz="-0.032136 -0.038350509 -0.070244447"
+        rpy="3.1415 0 0" />
+      <mass
+        value="1.2961" />
+      <inertia
+        ixx="0.0045968"
+        ixy="0.0024204"
+        ixz="6.57E-05"
+        iyy="0.0027829"
+        iyz="-0.00010619"
+        izz="0.0072958" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="3.1415 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RL_hip_pitch.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="3.1415 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RL_hip_pitch.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RL_hip_pitch"
+    type="revolute">
+    <origin
+      xyz="0.019497 0.00033137 -0.078"
+      rpy="-1.587705176 -1.077796265 1.587704252" />
+    <parent
+      link="RL_hip_roll" />
+    <child
+      link="RL_hip_pitch" />
+    <axis
+      xyz="0 0.016900359 0.999861570" />
+    <limit
+      lower="-2.094395102"
+      upper="1.396263402"
+      effort="120"
+      velocity="15" />
+  </joint>
+  <link
+    name="RL_knee_pitch">
+    <inertial>
+      <origin
+        xyz="0.095213 0.089181 0.0015155"
+        rpy="0 0 0" />
+      <mass
+        value="0.42769" />
+      <inertia
+        ixx="0.0008361"
+        ixy="-0.00096425"
+        ixz="-1.6384E-05"
+        iyy="0.0012878"
+        iyz="-1.3578E-05"
+        izz="0.0020866" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RL_knee_pitch.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RL_knee_pitch.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RL_knee_pitch"
+    type="revolute">
+    <origin
+      xyz="-0.12 -0.206388154 -0.088000878"
+      rpy="3.138901187 0.009005401 -0.561897930" />
+    <parent
+      link="RL_hip_pitch" />
+    <child
+      link="RL_knee_pitch" />
+    <axis
+      xyz="0 0.016993 -0.99986" />
+    <limit
+      lower="0"
+      upper="1.745329252"
+      effort="120"
+      velocity="15" />
+  </joint>
+  <link
+    name="RL_foot">
+    <inertial>
+      <origin
+        xyz="0.0020513 7.4563E-05 -0.0043872"
+        rpy="0 0 0" />
+      <mass
+        value="0.056509" />
+      <inertia
+        ixx="9.6885E-06"
+        ixy="2.6857E-08"
+        ixz="-1.5804E-06"
+        iyy="1.3535E-05"
+        iyz="2.0446E-08"
+        izz="1.2332E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RL_foot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RL_foot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RL_foot"
+    type="fixed">
+    <origin
+      xyz="0.16971 0.16968 0.0028839"
+      rpy="1.5708 0 0" />
+    <parent
+      link="RL_knee_pitch" />
+    <child
+      link="RL_foot" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="RR_hip_roll">
+    <inertial>
+      <origin
+        xyz="0.0014408 -0.00038092 -0.051362"
+        rpy="0 0 0" />
+      <mass
+        value="0.33515" />
+      <inertia
+        ixx="0.0005112"
+        ixy="4.0824E-06"
+        ixz="-3.4924E-07"
+        iyy="0.00026652"
+        iyz="3.575E-07"
+        izz="0.00035513" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RR_hip_roll.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RR_hip_roll.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RR_hip_roll"
+    type="revolute">
+    <origin
+      xyz="-0.172 -0.071003335 0.058808840"
+      rpy="1.570796327 0.000096327 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="RR_hip_roll" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.436332313"
+      upper="0.523598776"
+      effort="60"
+      velocity="20" />
+  </joint>
+  <link
+    name="RR_hip_pitch">
+    <inertial>
+      <origin
+        xyz="-0.031891 -0.040839616 0.068907784"
+        rpy="3.1415 0 0" />
+      <mass
+        value="1.2962" />
+      <inertia
+        ixx="0.0045935"
+        ixy="0.0024235"
+        ixz="1.7247E-05"
+        iyy="0.0027847"
+        iyz="-4.6933E-05"
+        izz="0.0072983" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="3.1415 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RR_hip_pitch.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="3.1415 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RR_hip_pitch.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RR_hip_pitch"
+    type="revolute">
+    <origin
+      xyz="-0.019497 -0.00033137 -0.078"
+      rpy="-1.587705176 -1.077796265 1.587704252" />
+    <parent
+      link="RR_hip_roll" />
+    <child
+      link="RR_hip_pitch" />
+    <axis
+      xyz="0 -0.016900359 -0.999861570" />
+    <limit
+      lower="-1.396263402"
+      upper="2.094395102"
+      effort="120"
+      velocity="15" />
+  </joint>
+  <link
+    name="RR_knee_pitch">
+    <inertial>
+      <origin
+        xyz="0.095213 0.089181 0.0015155"
+        rpy="0 0 0" />
+      <mass
+        value="0.42769" />
+      <inertia
+        ixx="0.0008361"
+        ixy="-0.00096425"
+        ixz="-1.6384E-05"
+        iyy="0.0012878"
+        iyz="-1.3578E-05"
+        izz="0.0020866" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RR_knee_pitch.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RR_knee_pitch.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RR_knee_pitch"
+    type="revolute">
+    <origin
+      xyz="-0.12 -0.209242498 0.080975387"
+      rpy="3.139092258 0.008694539 -0.540308490" />
+    <parent
+      link="RR_hip_pitch" />
+    <child
+      link="RR_knee_pitch" />
+    <axis
+      xyz="0 -0.016993 0.99986" />
+    <limit
+      lower="-1.745329252"
+      upper="0"
+      effort="120"
+      velocity="15" />
+  </joint>
+  <link
+    name="RR_foot">
+    <inertial>
+      <origin
+        xyz="0.0020513 7.4563E-05 -0.0043872"
+        rpy="0 0 0" />
+      <mass
+        value="0.056509" />
+      <inertia
+        ixx="9.6885E-06"
+        ixy="2.6857E-08"
+        ixz="-1.5804E-06"
+        iyy="1.3535E-05"
+        iyz="2.0446E-08"
+        izz="1.2332E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RR_foot.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dog_description/meshes/RR_foot.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RR_foot"
+    type="fixed">
+    <origin
+      xyz="0.16971 0.16968 0.0028839"
+      rpy="1.5708 0 0" />
+    <parent
+      link="RR_knee_pitch" />
+    <child
+      link="RR_foot" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <!--
+    Motor inertias are modeled as uniform cylinders centered on their joint axes.
+    RS03: 0.88 kg, diameter 0.098 m, length 0.0541 m.
+    RS04: 1.42 kg, diameter 0.120 m, length 0.0522 m.
+  -->
+  <link name="FL_hip_roll_motor"><inertial><origin xyz="0 0 -0.02705" rpy="0 0 0" /><mass value="0.88" /><inertia ixx="0.000742853" ixy="0" ixz="0" iyy="0.000742853" iyz="0" izz="0.001056440" /></inertial></link>
+  <joint name="FL_hip_roll_motor_mount" type="fixed"><parent link="base_link" /><child link="FL_hip_roll_motor" /><origin xyz="0.172 0.068975893 0.061174356" rpy="1.570796327 0.000096327 1.5708" /></joint>
+  <link name="FR_hip_roll_motor"><inertial><origin xyz="0 0 -0.02705" rpy="0 0 0" /><mass value="0.88" /><inertia ixx="0.000742853" ixy="0" ixz="0" iyy="0.000742853" iyz="0" izz="0.001056440" /></inertial></link>
+  <joint name="FR_hip_roll_motor_mount" type="fixed"><parent link="base_link" /><child link="FR_hip_roll_motor" /><origin xyz="0.172 -0.071003335 0.058808840" rpy="1.570796327 0.000096327 1.5708" /></joint>
+  <link name="RL_hip_roll_motor"><inertial><origin xyz="0 0 0.02705" rpy="0 0 0" /><mass value="0.88" /><inertia ixx="0.000742853" ixy="0" ixz="0" iyy="0.000742853" iyz="0" izz="0.001056440" /></inertial></link>
+  <joint name="RL_hip_roll_motor_mount" type="fixed"><parent link="base_link" /><child link="RL_hip_roll_motor" /><origin xyz="-0.172 0.068975893 0.061174356" rpy="1.570796327 0.000096327 1.5708" /></joint>
+  <link name="RR_hip_roll_motor"><inertial><origin xyz="0 0 0.02705" rpy="0 0 0" /><mass value="0.88" /><inertia ixx="0.000742853" ixy="0" ixz="0" iyy="0.000742853" iyz="0" izz="0.001056440" /></inertial></link>
+  <joint name="RR_hip_roll_motor_mount" type="fixed"><parent link="base_link" /><child link="RR_hip_roll_motor" /><origin xyz="-0.172 -0.071003335 0.058808840" rpy="1.570796327 0.000096327 1.5708" /></joint>
+
+  <link name="FL_hip_pitch_motor"><inertial><origin xyz="0 0 0.0261" rpy="0.016901163 0 0" /><mass value="1.42" /><inertia ixx="0.001600439" ixy="0" ixz="0" iyy="0.001600439" iyz="0" izz="0.002556000" /></inertial></link>
+  <joint name="FL_hip_pitch_motor_mount" type="fixed"><parent link="FL_hip_roll" /><child link="FL_hip_pitch_motor" /><origin xyz="0.019997 0.00033987 0.078" rpy="-1.587705176 -1.077796265 1.587704252" /></joint>
+  <link name="FR_hip_pitch_motor"><inertial><origin xyz="0 0 -0.0261" rpy="-0.016901163 0 0" /><mass value="1.42" /><inertia ixx="0.001600439" ixy="0" ixz="0" iyy="0.001600439" iyz="0" izz="0.002556000" /></inertial></link>
+  <joint name="FR_hip_pitch_motor_mount" type="fixed"><parent link="FR_hip_roll" /><child link="FR_hip_pitch_motor" /><origin xyz="-0.019497 -0.00033137 0.078" rpy="-1.587705176 -1.077796265 1.587704252" /></joint>
+  <link name="RL_hip_pitch_motor"><inertial><origin xyz="0 0 0.0261" rpy="0.016901163 0 0" /><mass value="1.42" /><inertia ixx="0.001600439" ixy="0" ixz="0" iyy="0.001600439" iyz="0" izz="0.002556000" /></inertial></link>
+  <joint name="RL_hip_pitch_motor_mount" type="fixed"><parent link="RL_hip_roll" /><child link="RL_hip_pitch_motor" /><origin xyz="0.019497 0.00033137 -0.078" rpy="-1.587705176 -1.077796265 1.587704252" /></joint>
+  <link name="RR_hip_pitch_motor"><inertial><origin xyz="0 0 -0.0261" rpy="-0.016901163 0 0" /><mass value="1.42" /><inertia ixx="0.001600439" ixy="0" ixz="0" iyy="0.001600439" iyz="0" izz="0.002556000" /></inertial></link>
+  <joint name="RR_hip_pitch_motor_mount" type="fixed"><parent link="RR_hip_roll" /><child link="RR_hip_pitch_motor" /><origin xyz="-0.019497 -0.00033137 -0.078" rpy="-1.587705176 -1.077796265 1.587704252" /></joint>
+
+  <link name="FL_knee_pitch_motor"><inertial><origin xyz="0 0 0" rpy="-0.016994274 0 0" /><mass value="1.42" /><inertia ixx="0.001600439" ixy="0" ixz="0" iyy="0.001600439" iyz="0" izz="0.002556000" /></inertial></link>
+  <joint name="FL_knee_pitch_motor_mount" type="fixed"><parent link="FL_hip_pitch" /><child link="FL_knee_pitch_motor" /><origin xyz="0 0 -0.0261" rpy="0 0 0" /></joint>
+  <link name="FR_knee_pitch_motor"><inertial><origin xyz="0 0 0" rpy="-0.016994274 0 0" /><mass value="1.42" /><inertia ixx="0.001600439" ixy="0" ixz="0" iyy="0.001600439" iyz="0" izz="0.002556000" /></inertial></link>
+  <joint name="FR_knee_pitch_motor_mount" type="fixed"><parent link="FR_hip_pitch" /><child link="FR_knee_pitch_motor" /><origin xyz="0 0 0.0261" rpy="0 0 0" /></joint>
+  <link name="RL_knee_pitch_motor"><inertial><origin xyz="0 0 0" rpy="-0.016994274 0 0" /><mass value="1.42" /><inertia ixx="0.001600439" ixy="0" ixz="0" iyy="0.001600439" iyz="0" izz="0.002556000" /></inertial></link>
+  <joint name="RL_knee_pitch_motor_mount" type="fixed"><parent link="RL_hip_pitch" /><child link="RL_knee_pitch_motor" /><origin xyz="0 0 -0.0261" rpy="0 0 0" /></joint>
+  <link name="RR_knee_pitch_motor"><inertial><origin xyz="0 0 0" rpy="0.016994274 0 0" /><mass value="1.42" /><inertia ixx="0.001600439" ixy="0" ixz="0" iyy="0.001600439" iyz="0" izz="0.002556000" /></inertial></link>
+  <joint name="RR_knee_pitch_motor_mount" type="fixed"><parent link="RR_hip_pitch" /><child link="RR_knee_pitch_motor" /><origin xyz="0 0 0.0261" rpy="0 0 0" /></joint>
+</robot>

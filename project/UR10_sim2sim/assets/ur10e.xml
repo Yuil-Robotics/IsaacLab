@@ -1,0 +1,138 @@
+<!--
+Copyright (c) 2026, The Isaac Lab Project Developers
+SPDX-License-Identifier: BSD-3-Clause
+
+Mesh-free UR10e model for Isaac Lab to MuJoCo policy transfer.
+Kinematics and inertial values follow the UR10e URDF bundled with Isaac Sim.
+The world frame is the UR controller "base" frame, not ROS "base_link".
+-->
+<mujoco model="ur10e_reach_sim2sim">
+  <compiler angle="radian" autolimits="true"/>
+  <option timestep="0.008333333333333333" gravity="0 0 0" integrator="implicitfast"/>
+
+  <default>
+    <joint armature="0" damping="0" frictionloss="0"/>
+    <!-- Isaac's UR10e asset disables self-collisions, and this reach task does not
+         use environment contacts. Disable collisions for the primitive display
+         geometry so overlapping link approximations cannot lock the arm. -->
+    <geom condim="3" contype="0" conaffinity="0" density="0"/>
+    <position ctrllimited="false"/>
+  </default>
+
+  <asset>
+    <material name="ur_blue" rgba="0.05 0.32 0.52 1"/>
+    <material name="ur_gray" rgba="0.68 0.70 0.72 1"/>
+    <material name="target" rgba="0.9 0.15 0.1 0.65"/>
+  </asset>
+
+  <worldbody>
+    <geom name="floor" type="plane" size="2 2 0.05" pos="0 0 -0.05"
+          rgba="0.25 0.27 0.29 1" contype="0" conaffinity="0"/>
+
+    <body name="target" mocap="true" pos="0.8875 -0.225 0.2"
+          quat="0 0.70710678 -0.70710678 0">
+      <site name="target_site" type="sphere" size="0.035" material="target"/>
+      <site name="target_frame_x" type="capsule" fromto="0 0 0 0.15 0 0"
+            size="0.008" rgba="1 0 0 0.65"/>
+      <site name="target_frame_y" type="capsule" fromto="0 0 0 0 0.15 0"
+            size="0.008" rgba="0 1 0 0.65"/>
+      <site name="target_frame_z" type="capsule" fromto="0 0 0 0 0 0.15"
+            size="0.008" rgba="0 0.35 1 0.65"/>
+    </body>
+
+    <body name="base" pos="0 0 0">
+      <inertial pos="0 0 0" mass="4"
+                diaginertia="0.0061063308908 0.0061063308908 0.01125"/>
+      <geom name="base_geom" type="cylinder" size="0.11 0.09"
+            pos="0 0 0.09" material="ur_gray"/>
+
+      <body name="shoulder_link" pos="0 0 0.1807">
+        <joint name="shoulder_pan_joint" type="hinge" axis="0 0 1"
+               range="-6.28318530718 6.28318530718"/>
+        <inertial pos="0 0 0" mass="7.778"
+                  diaginertia="0.0314743125769 0.0314743125769 0.021875625"/>
+        <geom name="shoulder_geom" type="cylinder" size="0.095 0.09"
+              quat="0.70710678 0.70710678 0 0" material="ur_blue"/>
+
+        <body name="upper_arm_link" euler="1.570796327 0 0">
+          <joint name="shoulder_lift_joint" type="hinge" axis="0 0 1"
+                 range="-6.28318530718 6.28318530718"/>
+          <inertial pos="-0.306 0 0.175" quat="0.70710678 0 0.70710678 0"
+                    mass="12.93"
+                    diaginertia="0.421753803798 0.421753803798 0.036365625"/>
+          <geom name="upper_arm_geom" type="capsule"
+                fromto="0 0 0 -0.6127 0 0" size="0.075" material="ur_gray"/>
+
+          <body name="forearm_link" pos="-0.6127 0 0">
+            <joint name="elbow_joint" type="hinge" axis="0 0 1"
+                   range="-3.14159265359 3.14159265359"/>
+            <inertial pos="-0.285775 0 0.0393" quat="0.70710678 0 0.70710678 0"
+                      mass="3.87"
+                      diaginertia="0.110793025489 0.110793025489 0.010884375"/>
+            <geom name="forearm_geom" type="capsule"
+                  fromto="0 0 0 -0.57155 0 0.17415" size="0.06"
+                  material="ur_blue"/>
+
+            <body name="wrist_1_link" pos="-0.57155 0 0.17415">
+              <joint name="wrist_1_joint" type="hinge" axis="0 0 1"
+                     range="-6.28318530718 6.28318530718"/>
+              <inertial pos="0 0 0" mass="1.96"
+                        diaginertia="0.0051082479567 0.0051082479567 0.0055125"/>
+              <geom name="wrist_1_geom" type="cylinder" size="0.055 0.07"
+                    material="ur_gray"/>
+
+              <body name="wrist_2_link" pos="0 -0.11985 0"
+                    euler="1.570796327 0 0">
+                <joint name="wrist_2_joint" type="hinge" axis="0 0 1"
+                       range="-6.28318530718 6.28318530718"/>
+                <inertial pos="0 0 0" mass="1.96"
+                          diaginertia="0.0051082479567 0.0051082479567 0.0055125"/>
+                <geom name="wrist_2_geom" type="cylinder" size="0.055 0.06"
+                      material="ur_blue"/>
+
+                <body name="wrist_3_link" pos="0 0.11655 0"
+                      euler="1.57079632659 3.14159265359 3.14159265359">
+                  <joint name="wrist_3_joint" type="hinge" axis="0 0 1"
+                         range="-6.28318530718 6.28318530718"/>
+                  <inertial pos="0 0 -0.025" mass="0.202"
+                            diaginertia="0.000144345775595 0.000144345775595 0.000204525"/>
+                  <geom name="wrist_3_geom" type="cylinder" size="0.045 0.058"
+                        material="ur_gray"/>
+                  <site name="wrist_3_site" pos="0 0 0" size="0.018"
+                        rgba="0.1 0.9 0.2 1"/>
+                  <site name="ee_frame_x" type="capsule" fromto="0 0 0 0.10 0 0"
+                        size="0.005" rgba="1 0 0 1"/>
+                  <site name="ee_frame_y" type="capsule" fromto="0 0 0 0 0.10 0"
+                        size="0.005" rgba="0 1 0 1"/>
+                  <site name="ee_frame_z" type="capsule" fromto="0 0 0 0 0 0.10"
+                        size="0.005" rgba="0 0.35 1 1"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position name="shoulder_pan_actuator" joint="shoulder_pan_joint"
+              kp="1320" kv="72.6636085" forcelimited="true"
+              forcerange="-330 330"/>
+    <position name="shoulder_lift_actuator" joint="shoulder_lift_joint"
+              kp="1320" kv="72.6636085" forcelimited="true"
+              forcerange="-330 330"/>
+    <position name="elbow_actuator" joint="elbow_joint"
+              kp="600" kv="34.64101615" forcelimited="true"
+              forcerange="-150 150"/>
+    <position name="wrist_1_actuator" joint="wrist_1_joint"
+              kp="216" kv="29.39387691" forcelimited="true"
+              forcerange="-56 56"/>
+    <position name="wrist_2_actuator" joint="wrist_2_joint"
+              kp="216" kv="29.39387691" forcelimited="true"
+              forcerange="-56 56"/>
+    <position name="wrist_3_actuator" joint="wrist_3_joint"
+              kp="216" kv="29.39387691" forcelimited="true"
+              forcerange="-56 56"/>
+  </actuator>
+</mujoco>

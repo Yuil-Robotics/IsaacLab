@@ -118,7 +118,8 @@ The training and evaluation commands below work unchanged.
 .. _rlinf-decord-aarch64:
 
 Then preload the OpenMP library so it can be loaded into the Python process
-(see :ref:`isaaclab-pip-installing-dependencies`):
+(see the IsaacLab `pip installation guide
+<https://isaac-sim.github.io/IsaacLab/release/3.0.0-beta2/source/setup/installation/pip_installation.html#installing-dependencies>`_):
 
 .. code-block:: bash
 

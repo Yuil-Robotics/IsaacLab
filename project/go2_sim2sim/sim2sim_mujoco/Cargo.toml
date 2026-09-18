@@ -1,0 +1,12 @@
+[package]
+name = "yuil-dog-sim2sim-mujoco"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+mujoco-rs = { version = "5.0.0", features = ["viewer-ui", "auto-download-mujoco"] }
+egui = "0.33"
+
+[patch.crates-io]
+mujoco-rs = { path = "crates/mujoco-rs" }
+

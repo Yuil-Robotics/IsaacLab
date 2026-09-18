@@ -1,0 +1,4 @@
+[env]
+# mujoco-rs requires an absolute extraction path when auto-download is enabled.
+MUJOCO_DOWNLOAD_DIR = { value = ".mujoco", relative = true }
+

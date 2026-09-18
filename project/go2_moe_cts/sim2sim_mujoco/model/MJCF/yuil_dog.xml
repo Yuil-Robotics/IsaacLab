@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="TOTAL ASSY_4차_URDF_sample">
+  <option timestep="0.005" gravity="0 0 -9.81" integrator="implicitfast" cone="elliptic" iterations="50" />
+  <compiler angle="radian" meshdir="../meshes/" />
+  <visual>
+    <headlight ambient="0.4 0.4 0.4" diffuse="0.8 0.8 0.8" specular="0.1 0.1 0.1" />
+    <rgba haze="0.15 0.25 0.35 1" />
+    <global azimuth="120" elevation="-20" />
+  </visual>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="512" />
+    <texture name="grid_tex" type="2d" builtin="checker" width="512" height="512" rgb1="0.18 0.22 0.28" rgb2="0.28 0.34 0.42" mark="cross" markrgb="0.75 0.80 0.85" />
+    <material name="grid_mat" texture="grid_tex" texrepeat="2 2" texuniform="true" reflectance="0.15" />
+    <mesh name="base_link" content_type="model/stl" file="base_link.STL" />
+    <mesh name="FL_hip_roll" content_type="model/stl" file="FL_hip_roll.STL" />
+    <mesh name="FL_hip_pitch" content_type="model/stl" file="FL_hip_pitch.STL" />
+    <mesh name="FL_knee_pitch" content_type="model/stl" file="FL_knee_pitch.STL" />
+    <mesh name="FL_foot" content_type="model/stl" file="FL_foot.STL" />
+    <mesh name="FR_hip_roll" content_type="model/stl" file="FR_hip_roll.STL" />
+    <mesh name="FR_hip_pitch" content_type="model/stl" file="FR_hip_pitch.STL" />
+    <mesh name="FR_knee_pitch" content_type="model/stl" file="FR_knee_pitch.STL" />
+    <mesh name="FR_foot" content_type="model/stl" file="FR_foot.STL" />
+    <mesh name="RL_hip_roll" content_type="model/stl" file="RL_hip_roll.STL" />
+    <mesh name="RL_hip_pitch" content_type="model/stl" file="RL_hip_pitch.STL" />
+    <mesh name="RL_knee_pitch" content_type="model/stl" file="RL_knee_pitch.STL" />
+    <mesh name="RL_foot" content_type="model/stl" file="RL_foot.STL" />
+    <mesh name="RR_hip_roll" content_type="model/stl" file="RR_hip_roll.STL" />
+    <mesh name="RR_hip_pitch" content_type="model/stl" file="RR_hip_pitch.STL" />
+    <mesh name="RR_knee_pitch" content_type="model/stl" file="RR_knee_pitch.STL" />
+    <mesh name="RR_foot" content_type="model/stl" file="RR_foot.STL" />
+  </asset>
+  <worldbody>
+    <light directional="true" diffuse="0.7 0.7 0.7" specular="0.2 0.2 0.2" pos="0 0 5.0" dir="0 0 -1" castshadow="false" />
+    <geom name="ground" type="plane" size="0 0 0.05" material="grid_mat" friction="1 0.005 0.0001" condim="3" contype="2" conaffinity="1" />
+    <body name="base">
+      <freejoint name="base_free_joint" />
+      <body name="base_link">
+        <inertial pos="0 -0.000744 0.044013" quat="-0.00596919 0.707082 -0.00596919 0.707082" mass="6.5031" diaginertia="0.115128 0.0895957 0.037055" />
+        <geom pos="0 0 0" quat="0.707141 0.707073 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.69804 0.69804 0.69804 1" mesh="base_link" />
+        <geom size="0.17 0.1 0.06" pos="0 0 0.055" type="box" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+        <body name="FL_hip_roll" pos="0.172 0.0689759 0.0611744" quat="0.500023 0.499975 0.500025 0.499977">
+          <inertial pos="-0.005209 0.00015 0.072744" quat="0.999436 -0.0297755 -0.0130204 0.00846893" mass="1.75515" diaginertia="0.00325722 0.00206299 0.00196079" />
+          <joint name="FL_hip_roll" pos="0 0 0" axis="0 0 -1" range="-0.436332 0.523599" actuatorfrcrange="-60 60" armature="0.0043" damping="0.003" frictionloss="0.27" />
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.69804 0.69804 0.69804 1" mesh="FL_hip_roll" />
+          <geom size="0.045 0.04" pos="-0.005 0 0.069" type="cylinder" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+          <body name="FL_hip_pitch" pos="0.019997 0.00033987 0.078" quat="0.682815 -0.172518 -0.68865 0.172517">
+            <inertial pos="-0.015335 -0.018304 -0.046927" quat="0.550213 0.316538 -0.706246 0.313507" mass="2.7161" diaginertia="0.0118783 0.0108426 0.0036861" />
+            <joint name="FL_hip_pitch" pos="0 0 0" axis="0 0.0169003 0.999857" range="-2.0944 1.39626" actuatorfrcrange="-120 120" armature="0.01" damping="0.005" frictionloss="0.53" />
+            <geom pos="0 0 0" quat="4.63268e-05 1 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.69804 0.69804 0.69804 1" mesh="FL_hip_pitch" />
+            <geom size="0.04 0.11" pos="-0.06 -0.1032 -0.0437" quat="0.572653 0.708717 -0.412054 1.42419e-05" type="cylinder" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+            <body name="FL_knee_pitch" pos="-0.12 -0.206398 -0.0875009" quat="4.451e-05 0.960784 -0.277259 -0.00469927">
+              <inertial pos="0.0952134 0.0891808 0.00151548" quat="-0.238292 0.665754 0.226923 0.669698" mass="0.427686" diaginertia="0.00208687 0.00205232 7.13967e-05" />
+              <joint name="FL_knee_pitch" pos="0 0 0" axis="0 0.0169929 -0.999856" range="0 1.74533" actuatorfrcrange="-120 120" armature="0.01" damping="0.005" frictionloss="0.53" />
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.698039 0.698039 0.698039 1" mesh="FL_knee_pitch" />
+              <geom size="0.016 0.1" pos="0.0849 0.0848 0.0014" quat="0.711343 -0.496938 0.497035 -1.6573e-05" type="cylinder" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+              <body name="FL_foot" pos="0.16971 0.16968 0.0028839" quat="0.707105 0.707108 0 0">
+                <inertial pos="0.0020513 7.4563e-05 -0.0043872" quat="0.59329 0.384719 0.374586 0.599737" mass="0.056509" diaginertia="1.35353e-05 1.30704e-05 8.94975e-06" />
+                <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0 0 0 1" mesh="FL_foot" />
+                <geom size="0.025" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+              </body>
+            </body>
+          </body>
+        </body>
+        <body name="FR_hip_roll" pos="0.172 -0.0710033 0.0588088" quat="0.500023 0.499975 0.500025 0.499977">
+          <inertial pos="0.005615 -0.000234 0.072886" quat="0.999912 -0.00907463 0.0091427 -0.00314171" mass="1.75515" diaginertia="0.00327849 0.00208799 0.00196052" />
+          <joint name="FR_hip_roll" pos="0 0 0" axis="0 0 -1" range="-0.523599 0.436332" actuatorfrcrange="-60 60" armature="0.0043" damping="0.003" frictionloss="0.27" />
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.69804 0.69804 0.69804 1" mesh="FR_hip_roll" />
+          <geom size="0.045 0.04" pos="0.005 0 0.069" type="cylinder" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+          <body name="FR_hip_pitch" pos="-0.019497 -0.00033137 0.078" quat="0.682815 -0.172518 -0.68865 0.172517">
+            <inertial pos="-0.015219 -0.019489 0.046528" quat="0.69451 0.310199 -0.559929 0.328498" mass="2.7162" diaginertia="0.0119464 0.010929 0.00367961" />
+            <joint name="FR_hip_pitch" pos="0 0 0" axis="0 -0.0169003 -0.999857" range="-1.39626 2.0944" actuatorfrcrange="-120 120" armature="0.01" damping="0.005" frictionloss="0.53" />
+            <geom pos="0 0 0" quat="4.63268e-05 1 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.69804 0.69804 0.69804 1" mesh="FR_hip_pitch" />
+            <geom size="0.04 0.11" pos="-0.06 -0.1046 0.0405" quat="0.811855 0.506487 -0.290451 -1.23999e-05" type="cylinder" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+            <body name="FR_knee_pitch" pos="-0.12 -0.209242 0.0809754" quat="4.46461e-05 0.963721 -0.266872 -0.00452323">
+              <inertial pos="0.095213 0.089181 0.0015155" quat="-0.238293 0.665752 0.226929 0.669697" mass="0.42769" diaginertia="0.00208683 0.00205229 7.13789e-05" />
+              <joint name="FR_knee_pitch" pos="0 0 0" axis="0 -0.0169929 0.999856" range="-1.74533 0" actuatorfrcrange="-120 120" armature="0.01" damping="0.005" frictionloss="0.53" />
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.69804 0.69804 0.69804 1" mesh="FR_knee_pitch" />
+              <geom size="0.016 0.1" pos="0.0849 0.0848 0.0014" quat="0.711343 -0.496938 0.497035 -1.6573e-05" type="cylinder" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+              <body name="FR_foot" pos="0.16971 0.16968 0.0028839" quat="0.707105 0.707108 0 0">
+                <inertial pos="0.0020513 7.4563e-05 -0.0043872" quat="0.59329 0.384719 0.374586 0.599737" mass="0.056509" diaginertia="1.35353e-05 1.30704e-05 8.94975e-06" />
+                <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0 0 0 1" mesh="FR_foot" />
+                <geom size="0.025" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+              </body>
+            </body>
+          </body>
+        </body>
+        <body name="RL_hip_roll" pos="-0.172 0.0689759 0.0611744" quat="0.500023 0.499975 0.500025 0.499977">
+          <inertial pos="-0.005616 0.000277 -0.072899" quat="0.999779 0.0124041 0.0148799 0.00815703" mass="1.75515" diaginertia="0.00327849 0.00209075 0.00195476" />
+          <joint name="RL_hip_roll" pos="0 0 0" axis="0 0 1" range="-0.523599 0.436332" actuatorfrcrange="-60 60" armature="0.0043" damping="0.003" frictionloss="0.27" />
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.69804 0.69804 0.69804 1" mesh="RL_hip_roll" />
+          <geom size="0.045 0.04" pos="-0.005 0 -0.069" type="cylinder" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+          <body name="RL_hip_pitch" pos="0.019497 0.00033137 -0.078" quat="0.682815 -0.172518 -0.68865 0.172517">
+            <inertial pos="-0.015335 -0.018301 -0.047165" quat="0.548874 0.315748 -0.707508 0.313805" mass="2.7161" diaginertia="0.0118865 0.0108716 0.00370794" />
+            <joint name="RL_hip_pitch" pos="0 0 0" axis="0 0.0169003 0.999857" range="-2.0944 1.39626" actuatorfrcrange="-120 120" armature="0.01" damping="0.005" frictionloss="0.53" />
+            <geom pos="0 0 0" quat="4.63268e-05 1 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.69804 0.69804 0.69804 1" mesh="RL_hip_pitch" />
+            <geom size="0.04 0.11" pos="-0.06 -0.1032 -0.044" quat="0.571912 0.709159 -0.412323 -2.0519e-05" type="cylinder" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+            <body name="RL_knee_pitch" pos="-0.12 -0.206388 -0.0880009" quat="4.451e-05 0.960784 -0.277259 -0.00469927">
+              <inertial pos="0.095213 0.089181 0.0015155" quat="-0.238293 0.665752 0.226929 0.669697" mass="0.42769" diaginertia="0.00208683 0.00205229 7.13789e-05" />
+              <joint name="RL_knee_pitch" pos="0 0 0" axis="0 0.0169929 -0.999856" range="0 1.74533" actuatorfrcrange="-120 120" armature="0.01" damping="0.005" frictionloss="0.53" />
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.69804 0.69804 0.69804 1" mesh="RL_knee_pitch" />
+              <geom size="0.016 0.1" pos="0.0849 0.0848 0.0014" quat="0.711343 -0.496938 0.497035 -1.6573e-05" type="cylinder" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+              <body name="RL_foot" pos="0.16971 0.16968 0.0028839" quat="0.707105 0.707108 0 0">
+                <inertial pos="0.0020513 7.4563e-05 -0.0043872" quat="0.59329 0.384719 0.374586 0.599737" mass="0.056509" diaginertia="1.35353e-05 1.30704e-05 8.94975e-06" />
+                <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0 0 0 1" mesh="RL_foot" />
+                <geom size="0.025" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+              </body>
+            </body>
+          </body>
+        </body>
+        <body name="RR_hip_roll" pos="-0.172 -0.0710033 0.0588088" quat="0.500023 0.499975 0.500025 0.499977">
+          <inertial pos="0.005617 -0.000298 -0.072744" quat="0.999775 0.00601922 -0.0200507 -0.00336348" mass="1.75515" diaginertia="0.00325814 0.00206396 0.0019609" />
+          <joint name="RR_hip_roll" pos="0 0 0" axis="0 0 1" range="-0.436332 0.523599" actuatorfrcrange="-60 60" armature="0.0043" damping="0.003" frictionloss="0.27" />
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.69804 0.69804 0.69804 1" mesh="RR_hip_roll" />
+          <geom size="0.045 0.04" pos="0.005 0 -0.069" type="cylinder" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+          <body name="RR_hip_pitch" pos="-0.019497 -0.00033137 -0.078" quat="0.682815 -0.172518 -0.68865 0.172517">
+            <inertial pos="-0.015219 -0.019489 0.046528" quat="0.696731 0.315795 -0.558091 0.321518" mass="2.7162" diaginertia="0.01194 0.0109262 0.00368877" />
+            <joint name="RR_hip_pitch" pos="0 0 0" axis="0 -0.0169003 -0.999857" range="-1.39626 2.0944" actuatorfrcrange="-120 120" armature="0.01" damping="0.005" frictionloss="0.53" />
+            <geom pos="0 0 0" quat="4.63268e-05 1 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.69804 0.69804 0.69804 1" mesh="RR_hip_pitch" />
+            <geom size="0.04 0.11" pos="-0.06 -0.1046 0.0405" quat="0.811855 0.506487 -0.290451 -1.23999e-05" type="cylinder" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+            <body name="RR_knee_pitch" pos="-0.12 -0.209242 0.0809754" quat="4.4646e-05 0.963721 -0.266872 -0.00452323">
+              <inertial pos="0.095213 0.089181 0.0015155" quat="-0.238293 0.665752 0.226929 0.669697" mass="0.42769" diaginertia="0.00208683 0.00205229 7.13789e-05" />
+              <joint name="RR_knee_pitch" pos="0 0 0" axis="0 -0.0169929 0.999856" range="-1.74533 0" actuatorfrcrange="-120 120" armature="0.01" damping="0.005" frictionloss="0.53" />
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.69804 0.69804 0.69804 1" mesh="RR_knee_pitch" />
+              <geom size="0.016 0.1" pos="0.0849 0.0848 0.0014" quat="0.711343 -0.496938 0.497035 -1.6573e-05" type="cylinder" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+              <body name="RR_foot" pos="0.16971 0.16968 0.0028839" quat="0.707105 0.707108 0 0">
+                <inertial pos="0.0020513 7.4563e-05 -0.0043872" quat="0.59329 0.384719 0.374586 0.599737" mass="0.056509" diaginertia="1.35353e-05 1.30704e-05 8.94975e-06" />
+                <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0 0 0 1" mesh="RR_foot" />
+                <geom size="0.025" rgba="0.25 0.7 0.25 0" contype="1" conaffinity="0" friction="1 0.005 0.0001" condim="3" group="3" />
+              </body>
+            </body>
+          </body>
+        </body>
+        <camera name="tracking" mode="trackcom" pos="0 -2 0.7" xyaxes="1 0 0 0 0.33 0.94" />
+        <camera name="base_chase" mode="fixed" pos="-1.8 0 0.5" xyaxes="0 -1 0 0.259 0 0.966" />
+        <camera name="base_side" mode="fixed" pos="0 -1.8 0.4" xyaxes="1 0 0 0 0.259 0.966" />
+      </body>
+    </body>
+  </worldbody>
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" />
+  </visual>
+</mujoco>

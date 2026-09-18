@@ -1,0 +1,82 @@
+{
+  "algorithm": "MoE-CTS student",
+  "history_layout": "term-major, oldest-to-newest",
+  "input_dim": 450,
+  "action_dim": 12,
+  "observation_terms": [
+    "base_ang_vel",
+    "projected_gravity",
+    "velocity_commands",
+    "joint_pos",
+    "joint_vel",
+    "last_action"
+  ],
+  "observation_scales": [
+    0.25,
+    1.0,
+    1.0,
+    1.0,
+    0.05,
+    1.0
+  ],
+  "control_dt": 0.02,
+  "joint_names": [
+    "FL_hip_roll",
+    "FL_hip_pitch",
+    "FL_knee_pitch",
+    "FR_hip_roll",
+    "FR_hip_pitch",
+    "FR_knee_pitch",
+    "RL_hip_roll",
+    "RL_hip_pitch",
+    "RL_knee_pitch",
+    "RR_hip_roll",
+    "RR_hip_pitch",
+    "RR_knee_pitch"
+  ],
+  "action_scale": 0.25,
+  "joint_position_clip": {
+    "FL_hip_roll": [
+      -0.38,
+      0.46
+    ],
+    "FR_hip_roll": [
+      -0.46,
+      0.38
+    ],
+    "RL_hip_roll": [
+      -0.46,
+      0.38
+    ],
+    "RR_hip_roll": [
+      -0.38,
+      0.46
+    ],
+    ".*L_hip_pitch": [
+      -1.8,
+      1.2
+    ],
+    ".*R_hip_pitch": [
+      -1.2,
+      1.8
+    ],
+    ".*L_knee_pitch": [
+      0.05,
+      1.57
+    ],
+    ".*R_knee_pitch": [
+      -1.57,
+      -0.05
+    ]
+  },
+  "default_joint_pos": {
+    "FL_hip_roll": -0.05,
+    "FR_hip_roll": 0.05,
+    "RL_hip_roll": 0.05,
+    "RR_hip_roll": -0.05,
+    ".*L_hip_pitch": -0.7,
+    ".*R_hip_pitch": 0.7,
+    ".*L_knee_pitch": 0.7,
+    ".*R_knee_pitch": -0.7
+  }
+}

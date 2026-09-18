@@ -30,3 +30,11 @@ from isaaclab_tasks.utils import import_packages
 _BLACKLIST_PKGS = ["utils", ".mdp"]
 # Import all configs in this package
 import_packages(__name__, _BLACKLIST_PKGS)
+
+##
+# Register custom project tasks (Robotis hand cube sim-to-sim).
+##
+import contextlib
+
+with contextlib.suppress(ImportError):
+    import sim2sim_newton  # noqa: F401

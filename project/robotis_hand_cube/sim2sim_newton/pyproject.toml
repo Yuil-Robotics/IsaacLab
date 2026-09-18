@@ -1,0 +1,17 @@
+# Copyright (c) 2026, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sim2sim-newton"
+version = "0.1.0"
+description = "Robotis HX5 benchmark training and Newton sim-to-sim environment"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+where = ["source"]

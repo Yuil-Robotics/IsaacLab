@@ -1,0 +1,70 @@
+# Copyright (c) 2022-2026, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+# go2_moe_cts MuJoCo Sim2Sim 배포 설정
+# go2_rl_robotlab deploy/deploy_mujoco/configs/go2.yaml 기반
+
+# Policy checkpoint (play.py로 export한 policy.pt)
+policy_path: "${ROOT_DIR}/deploy/pre_train/go2/policy.pt"
+
+# MuJoCo 평지 씬
+xml_path: "${ROOT_DIR}/deploy/resources/go2/flat.xml"
+
+# 렌더링
+render_fps: 300
+video_fps: 60
+save_video: false
+
+# 시뮬레이션 시간 설정
+simulation_duration: 60000000.0
+simulation_dt: 0.002         # MuJoCo 500 Hz
+control_decimation: 10       # 제어 50 Hz (= simulation_dt × control_decimation = 0.02s)
+
+# 로봇 초기 상태
+base_init_pos: [0.0, 0.0, 0.42]
+base_init_quat: [1.0, 0.0, 0.0, 0.0]
+
+# 모터 딜레이 (IsaacLab DCMotor 모터 레벨 딜레이 기준)
+actuator_delay_min: 0
+actuator_delay_max: 0
+
+# PD 게인 (IsaacLab DCMotorCfg: stiffness=25, damping=0.5)
+kp: 25.0
+kd: 0.5
+
+# 관측 공간 (IsaacLab policy obs 순서와 일치해야 함)
+# base_ang_vel(3) + projected_gravity(3) + velocity_commands(3)
+# + joint_pos(12) + joint_vel(12) + last_action(12) = 45 dim/frame
+# IsaacLab term-major 10-frame history = 450 dim
+num_single_obs: 45
+history_length: 10
+num_obs: 450
+num_actions: 12
+
+# 원본 go2_rl_robotlab 관측 스케일
+obs_clip: 100.0
+obs_scales:
+  angular_velocity: 0.25
+  projected_gravity: 1.0
+  command: 1.0
+  joint_position: 1.0
+  joint_velocity: 0.05
+  action: 1.0
+
+# 명령 (기본값; 컨트롤러 없을 때 사용)
+default_command:
+  lin_vel_x: 0.5
+  lin_vel_y: 0.0
+  ang_vel_z: 0.0
+
+# 컨트롤러 매핑
+# LX: lin_vel_x, LY: lin_vel_y, RX: ang_vel_z
+controller_mapping:
+  lin_vel_x: LY
+  lin_vel_y: LX
+  ang_vel_z: RX
+  lin_vel_x_scale: 1.0
+  lin_vel_y_scale: 0.5
+  ang_vel_z_scale: 1.0

@@ -35,9 +35,8 @@ INSTALL_REQUIRES = [
     "einops",  # needed for transformers, doesn't always auto-install
     "warp-lang==1.13.0",
     "matplotlib>=3.10.3",  # minimum version for Python 3.12 support
-    # pillow: floor, not exact — an exact pin below Isaac Sim's prebundled version forces a
-    # downgrade that deletes the prebundled copy other extensions symlink into (nvbugs 6410989).
-    "pillow>=12.1.1",
+    # make sure this is consistent with isaac sim version
+    "pillow==12.2.0",
     # required by omni.replicator.core S3 backend
     "botocore",
     # livestream
@@ -69,7 +68,7 @@ SUPPORTED_ARCHS = "platform_machine in 'x86_64,AMD64'"
 INSTALL_REQUIRES += [
     # required by isaaclab.isaaclab.controllers.pink_ik
     f"pin ; platform_system == 'Linux' and ({SUPPORTED_ARCHS_ARM})",
-    f"pin-pink==3.3.0 ; platform_system == 'Linux' and ({SUPPORTED_ARCHS_ARM})",
+    f"pin-pink==3.1.0 ; platform_system == 'Linux' and ({SUPPORTED_ARCHS_ARM})",
     f"daqp==0.8.5 ; platform_system == 'Linux' and ({SUPPORTED_ARCHS_ARM})",
 ]
 # Adds OpenUSD dependencies based on architecture for Kit less mode.
