@@ -3,14 +3,6 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-# The IsaacLab root ignores every path beginning with "__". Package
-# initializers are source files and must remain trackable in this project.
-!source/**/__init__.py
-
-**/__pycache__/
-.pytest_cache/
-*.pyc
-
 # The repository-level ignore excludes binary USD files. Keep the generated
 # wrappers and the small local DexCube source layers needed at runtime.
 !assets/hx5_d20_left_original_newton/hx5_d20_left.usda

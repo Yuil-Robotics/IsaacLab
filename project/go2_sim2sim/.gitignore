@@ -1,6 +1,2 @@
-logs/
 assets/
-__pycache__/
-*.py[cod]
-.pytest_cache/
 third_party/

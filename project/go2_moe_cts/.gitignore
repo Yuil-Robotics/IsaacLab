@@ -1,14 +1,4 @@
-__pycache__/
-*.py[cod]
-*.egg-info/
-.pytest_cache/
-.ruff_cache/
-logs/
-build/
-dist/
-
-# Keep package entrypoints and bundled robot assets despite parent ignore rules.
-!src/**/__init__.py
+# Keep bundled robot assets despite repository-wide USD ignore rules.
 !src/go2_moe_cts/robots/yuil_dog/usd/**/
 !src/go2_moe_cts/robots/yuil_dog/usd/**/*.usd
 !src/go2_moe_cts/robots/yuil_dog/usd/**/*.usda

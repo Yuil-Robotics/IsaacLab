@@ -1,5 +1,0 @@
-# Keep the package initializer despite the repository-wide **/__* rule.
-!src/ur10_sim2sim/__init__.py
-
-# Generated Sim2Sim rollout artifacts.
-artifacts/

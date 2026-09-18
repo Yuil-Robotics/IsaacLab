@@ -1,6 +1,0 @@
-# Keep the package initializer despite the repository-wide **/__* rule.
-!src/yuil_3kg_robot_arm/__init__.py
-
-# Project-generated outputs.
-artifacts/
-logs/

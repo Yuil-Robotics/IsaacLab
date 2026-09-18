@@ -1,6 +1,7 @@
 # C++
 **/cmake-build*/
 **/build*/
+**/target/
 **/*.so
 **/*.log*
 
@@ -19,8 +20,9 @@
 **/*.egg-info/
 **/__pycache__/
 **/.pytest_cache/
-**/*.pyc
+**/*.py[cod]
 **/*.pb
+**/dist/
 
 # Docker/Singularity
 **/*.sif
@@ -40,8 +42,19 @@ docker/.container.cfg
 **/videos/*
 **/wandb/*
 **/.neptune/*
-docker/artifacts/
+**/artifacts/
 *.tmp
+
+# MuJoCo runtime outputs
+**/.mujoco/
+**/MUJOCO_LOG.TXT
+**/*.mjb
+**/imgui.ini
+
+# Sim2Sim reports
+**/contract_report.json
+**/policy_result.json
+**/server_result.json
 
 # Doc Outputs
 **/docs/_build/*
@@ -55,7 +68,7 @@ _build
 
 # RL-Games
 **/runs/*
-**/logs/*
+**/logs/
 **/recordings/*
 
 # Pre-Trained Checkpoints
@@ -79,9 +92,6 @@ _build
 
 # Ruff cache
 **/.ruff_cache/
-
-# Dev-time files, generated stuff
-**/__*
 
 # Isaac Lab CI environments in native mode
 **/_isaaclab_install_ci_*
