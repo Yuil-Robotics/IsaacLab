@@ -78,7 +78,8 @@ _build
 /datasets/
 
 # Tests
-/tests/
+**/tests/
+**/scratch/
 
 # Docker history
 .isaac-lab-docker-history
@@ -98,3 +99,12 @@ _build
 
 # Superpowers (Claude Code plugin artifacts)
 docs/superpowers/
+
+# Docs
+**.pdf
+**.zip
+**.mp4
+**.webm
+
+# Sim2Real Packages
+**/packages/
